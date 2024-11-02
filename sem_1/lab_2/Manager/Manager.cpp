@@ -10,7 +10,6 @@ void Manager::scheduleShift(const std::string& employee_name, const std::string&
 
 void Manager::reviewPerformance(const std::string& employee_name, int rating) {
     std::cout << "Reviewing performance for " << employee_name << ". Rating: " << rating << "/5.\n";
-    // Здесь можно добавить логику для записи оценки сотрудника
 }
 
 void Manager::approveBudget(float amount) {

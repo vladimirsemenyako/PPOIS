@@ -1,6 +1,6 @@
 # 🎓 Laboratory Lessons on the discipline "Software Design of Intelligent Systems"
 
-# Autumn Quarter
+# Autumn Quarter (Vanilla C++)
 
 ## 📝 Tasks
 
@@ -18,4 +18,4 @@
 
 ### *Laboratory Lesson 4*
 
-**In Process...**
+**Implement a template container class to represent an undirected graph using an adjacency list.**

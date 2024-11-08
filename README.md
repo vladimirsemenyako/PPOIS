@@ -1,5 +1,7 @@
 # 🎓 Laboratory Lessons on the discipline "Software Design of Intelligent Systems"
 
+# Autumn Quarter
+
 ## 📝 Tasks
 
 ### *Laboratory Lesson 1*

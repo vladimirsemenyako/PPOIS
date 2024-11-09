@@ -1,31 +1,53 @@
-#ifndef EDGEITERATOR_H
-#define EDGEITERATOR_H
-#include <unordered_map>
-#include <unordered_set>
-template <typename T>
+#ifndef EDGE_ITERATOR_H
+#define EDGE_ITERATOR_H
+
+#include <map>
+#include <set>
+#include <utility>
+
+template<typename T>
 class EdgeIterator {
-public:
-    EdgeIterator(typename std::unordered_map<T, std::unordered_set<T>>::iterator it,
-                 typename std::unordered_map<T, std::unordered_set<T>>::iterator end)
-    : current(it), end(end) {}
-
-    using MapIterator = typename std::unordered_map<T, std::unordered_set<T>>::iterator;
-    using SetIterator = typename std::unordered_set<T>::iterator;
-
-    explicit EdgeIterator(MapIterator current) : current(current) {}
-
-    EdgeIterator& operator++();
-    EdgeIterator& operator--();
-
-    std::pair<T, T> operator*() const;
-
-    bool operator==(const EdgeIterator& other) const;
-
-    bool operator!=(const EdgeIterator& other) const;
-
 private:
-    typename std::unordered_map<T, std::unordered_set<T>>::iterator current;
-    typename std::unordered_map<T, std::unordered_set<T>>::iterator end;
+    using EdgeSet = std::set<T>;
+    using GraphMap = std::map<T, EdgeSet>;
+    using MapIterator = typename GraphMap::iterator;
+    MapIterator current;
+    MapIterator end;
+
+public:
+    // Конструктор
+    EdgeIterator(MapIterator it, MapIterator end_it)
+        : current(it), end(end_it) {}
+
+    // Операторы доступа и сравнения
+    std::pair<T, T> operator*() const {
+        if (current != end) {
+            return std::make_pair(current->first, *(current->second.begin()));
+        }
+        return std::make_pair(T(), T());
+    }
+
+    EdgeIterator& operator++() {
+        if (current != end) {
+            ++current;
+        }
+        return *this;
+    }
+
+    EdgeIterator& operator--() {
+        if (current != end) {
+            --current;
+        }
+        return *this;
+    }
+
+    bool operator==(const EdgeIterator &other) const {
+        return current == other.current;
+    }
+
+    bool operator!=(const EdgeIterator &other) const {
+        return current != other.current;
+    }
 };
 
-#endif //EDGEITERATOR_H
+#endif // EDGE_ITERATOR_H

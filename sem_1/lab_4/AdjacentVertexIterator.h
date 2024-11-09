@@ -1,23 +1,45 @@
-#ifndef ADJACENTVERTEXITERATOR_H
+    #ifndef ADJACENTVERTEXITERATOR_H
 #define ADJACENTVERTEXITERATOR_H
-#include <unordered_set>
+#include <set>
+
 template <typename T>
 class AdjacentVertexIterator {
 public:
-    AdjacentVertexIterator(typename std::unordered_set<T>::iterator it,
-                           typename std::unordered_set<T>::iterator end, const T& vertex)
-                    : current(it), end(end), vertex(vertex) {}
-    explicit AdjacentVertexIterator(typename std::unordered_set<T>::iterator it) : current(it) {}
-    AdjacentVertexIterator& operator++();
-    AdjacentVertexIterator& operator--();
-    T operator*() const;
-    bool operator==(const AdjacentVertexIterator& other) const;
-    bool operator!=(const AdjacentVertexIterator& other) const;
-private:
-    typename std::unordered_set<T>::iterator current;
-    typename std::unordered_set<T>::iterator end;
-    T vertex;
+    using SetIterator = typename std::set<T>::iterator;
 
+    AdjacentVertexIterator(SetIterator it, SetIterator end_it, const T& v)
+        : current(it), end(end_it), vertex(v) {}
+
+    AdjacentVertexIterator& operator++() {
+        if (current != end) {
+            ++current;
+        }
+        return *this;
+    }
+
+    AdjacentVertexIterator& operator--() {
+        if (current != end) {
+            --current;
+        }
+        return *this;
+    }
+
+    T operator*() const {
+        return *current;
+    }
+
+    bool operator==(const AdjacentVertexIterator& other) const {
+        return current == other.current;
+    }
+
+    bool operator!=(const AdjacentVertexIterator& other) const {
+        return current != other.current;
+    }
+
+private:
+    SetIterator current;
+    SetIterator end;
+    T vertex;
 };
 
 #endif //ADJACENTVERTEXITERATOR_H

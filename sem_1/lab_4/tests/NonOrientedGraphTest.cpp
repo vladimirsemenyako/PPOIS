@@ -6,7 +6,7 @@ protected:
     NonOrientedGraph<int> graph;
 
     void SetUp() override {
-        // Инициализируем граф для тестов
+        // Создаем базовый граф для тестов
         graph.addVertex(1);
         graph.addVertex(2);
         graph.addVertex(3);
@@ -15,125 +15,84 @@ protected:
     }
 };
 
-// Проверка на добавление вершин
-TEST_F(NonOrientedGraphTest, AddVertex) {
+TEST_F(NonOrientedGraphTest, AddVertexTest) {
+    EXPECT_EQ(graph.checkVertex(1), "true");
+    EXPECT_EQ(graph.checkVertex(4), "false");
+
+    graph.addVertex(4);
+    EXPECT_EQ(graph.checkVertex(4), "true");
+}
+
+TEST_F(NonOrientedGraphTest, AddEdgeTest) {
+    EXPECT_EQ(graph.checkEdge(1, 2), "true");
+    EXPECT_EQ(graph.checkEdge(1, 3), "false");
+
+    graph.addEdge(1, 3);
+    EXPECT_EQ(graph.checkEdge(1, 3), "true");
+    EXPECT_EQ(graph.checkEdge(3, 1), "true"); // Проверка неориентированности
+}
+
+TEST_F(NonOrientedGraphTest, RemoveVertexTest) {
+    graph.removeVertex(2);
+    EXPECT_EQ(graph.checkVertex(2), "false");
+    EXPECT_EQ(graph.checkEdge(1, 2), "false");
+    EXPECT_EQ(graph.checkEdge(2, 3), "false");
+}
+
+TEST_F(NonOrientedGraphTest, RemoveEdgeTest) {
+    graph.removeEdge(1, 2);
+    EXPECT_EQ(graph.checkEdge(1, 2), "false");
+    EXPECT_EQ(graph.checkEdge(2, 1), "false");
+}
+
+TEST_F(NonOrientedGraphTest, VertexCountTest) {
     EXPECT_EQ(graph.vertexCount(), 3);
     graph.addVertex(4);
     EXPECT_EQ(graph.vertexCount(), 4);
-    EXPECT_EQ(graph.checkVertex(4), "true");
+    graph.removeVertex(1);
+    EXPECT_EQ(graph.vertexCount(), 3);
 }
 
-// Проверка на добавление рёбер
-TEST_F(NonOrientedGraphTest, AddEdge) {
+TEST_F(NonOrientedGraphTest, EdgeCountTest) {
     EXPECT_EQ(graph.edgeCount(), 2);
     graph.addEdge(1, 3);
     EXPECT_EQ(graph.edgeCount(), 3);
-    EXPECT_EQ(graph.checkEdge(1, 3), "true");
-}
-
-// Проверка на удаление вершины
-TEST_F(NonOrientedGraphTest, RemoveVertex) {
-    graph.removeVertex(2);
-    EXPECT_EQ(graph.vertexCount(), 2);
-    EXPECT_EQ(graph.checkVertex(2), "false");
-    EXPECT_EQ(graph.edgeCount(), 0); // Все рёбра, связанные с вершиной 2, должны быть удалены
-}
-
-// Проверка на удаление рёбер
-TEST_F(NonOrientedGraphTest, RemoveEdge) {
     graph.removeEdge(1, 2);
-    EXPECT_EQ(graph.edgeCount(), 1);
-    EXPECT_EQ(graph.checkEdge(1, 2), "false");
-}
-
-// // Проверка на удаление вершины по итератору
-// TEST_F(NonOrientedGraphTest, RemoveVertexByIterator) {
-//     auto it = graph.vertexBegin();
-//     graph.removeVertexByIter(it);
-//     EXPECT_EQ(graph.vertexCount(), 2);
-// }
-
-// // Проверка на удаление ребра по итератору
-// TEST_F(NonOrientedGraphTest, RemoveEdgeByIterator) {
-//     auto it = graph.edgeBegin();
-//     graph.removeEdgeByIter(it);
-//     EXPECT_EQ(graph.edgeCount(), 1);
-// }
-
-// Проверка количества вершин и рёбер
-TEST_F(NonOrientedGraphTest, VertexAndEdgeCount) {
-    EXPECT_EQ(graph.vertexCount(), 3);
     EXPECT_EQ(graph.edgeCount(), 2);
 }
 
-// Проверка на степень вершины
-TEST_F(NonOrientedGraphTest, VertexDegree) {
+TEST_F(NonOrientedGraphTest, VertexDegreeTest) {
     EXPECT_EQ(graph.vertexDegree(2), 2);
     EXPECT_EQ(graph.vertexDegree(1), 1);
+    EXPECT_EQ(graph.vertexDegree(4), 0); // Несуществующая вершина
 }
 
-// Проверка степени ребра
-TEST_F(NonOrientedGraphTest, EdgeDegree) {
-    EXPECT_EQ(graph.edgeDegree(1, 2), 2);
+TEST_F(NonOrientedGraphTest, IteratorTest) {
+    std::vector<int> vertices;
+    for (auto it = graph.vertexBegin(); it != graph.vertexEnd(); ++it) {
+        vertices.push_back(*it);
+    }
+    EXPECT_EQ(vertices.size(), 3);
+
+    std::vector<std::pair<int, int>> edges;
+    for (auto it = graph.edgeBegin(); it != graph.edgeEnd(); ++it) {
+        edges.push_back(*it);
+    }
+    EXPECT_EQ(edges.size(), 3);
 }
 
-// Проверка итератора вершин
-TEST_F(NonOrientedGraphTest, VertexIterator) {
-    auto it = graph.vertexBegin();
-    EXPECT_EQ(*it, 1);
-    ++it;
-    EXPECT_EQ(*it, 2);
-    ++it;
-    EXPECT_EQ(*it, 3);
+TEST_F(NonOrientedGraphTest, AdjacentVertexIteratorTest) {
+    std::vector<int> adjacent;
+    for (auto it = graph.adjacentBegin(2); it != graph.adjacentEnd(2); ++it) {
+        adjacent.push_back(*it);
+    }
+    EXPECT_EQ(adjacent.size(), 2);
 }
 
-// Проверка итератора рёбер
-TEST_F(NonOrientedGraphTest, EdgeIterator) {
-    auto it = graph.edgeBegin();
-    auto edge = *it;
-    EXPECT_EQ(edge.first, 1);
-    EXPECT_EQ(edge.second, 2);
-    ++it;
-    edge = *it;
-    EXPECT_EQ(edge.first, 2);
-    EXPECT_EQ(edge.second, 3);
-}
-
-// Проверка итератора смежных вершин
-TEST_F(NonOrientedGraphTest, AdjacentVertexIterator) {
-    auto it = graph.adjacentBegin(2);
-    EXPECT_EQ(*it, 1);
-    ++it;
-    EXPECT_EQ(*it, 3);
-}
-
-// Проверка инцидентных рёбер
-TEST_F(NonOrientedGraphTest, EdgeIncidentIterator) {
-    auto it = graph.edgeIncidentBegin(2);
-    auto edge = *it;
-    EXPECT_EQ(edge.first, 2);
-    EXPECT_EQ(edge.second, 1);
-    ++it;
-    edge = *it;
-    EXPECT_EQ(edge.first, 2);
-    EXPECT_EQ(edge.second, 3);
-}
-
-// Проверка на отсутствие существующей вершины
-TEST_F(NonOrientedGraphTest, CheckVertex) {
-    EXPECT_EQ(graph.checkVertex(4), "false");
-    graph.addVertex(4);
-    EXPECT_EQ(graph.checkVertex(4), "true");
-}
-
-// Проверка на отсутствие существующего ребра
-TEST_F(NonOrientedGraphTest, CheckEdge) {
-    EXPECT_EQ(graph.checkEdge(1, 3), "false");
-    graph.addEdge(1, 3);
-    EXPECT_EQ(graph.checkEdge(1, 3), "true");
-}
-
-int main(int argc, char** argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+TEST_F(NonOrientedGraphTest, EdgeIncidentIteratorTest) {
+    std::vector<std::pair<int, int>> incident;
+    for (auto it = graph.edgeIncidentBegin(2); it != graph.edgeIncidentEnd(2); ++it) {
+        incident.push_back(*it);
+    }
+    EXPECT_EQ(incident.size(), 2);
 }

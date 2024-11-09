@@ -1,24 +1,45 @@
 #ifndef VERTEXITERATOR_H
 #define VERTEXITERATOR_H
-
-#include <unordered_map>
-#include <unordered_set>
+#include <map>
+#include <set>
 
 template <typename T>
 class VertexIterator {
 public:
-    VertexIterator(typename std::unordered_map<T, std::unordered_set<T>>::iterator it,
-                   typename std::unordered_map<T, std::unordered_set<T>>::iterator end)
-                    : current(it), end(end) {}
-    explicit VertexIterator(typename std::unordered_map<T, std::unordered_set<T>>::iterator it) : current(it) {}
-    VertexIterator& operator++();
-    VertexIterator& operator--();
-    T operator*() const;
-    bool operator==(const VertexIterator& other) const;
-    bool operator!=(const VertexIterator& other) const;
+    using MapIterator = typename std::map<T, std::set<T>>::iterator;
+
+    VertexIterator(MapIterator it, MapIterator end_it)
+        : current(it), end(end_it) {}
+
+    VertexIterator& operator++() {
+        if (current != end) {
+            ++current;
+        }
+        return *this;
+    }
+
+    VertexIterator& operator--() {
+        if (current != end) {
+            --current;
+        }
+        return *this;
+    }
+
+    T operator*() const {
+        return current->first;
+    }
+
+    bool operator==(const VertexIterator& other) const {
+        return current == other.current;
+    }
+
+    bool operator!=(const VertexIterator& other) const {
+        return current != other.current;
+    }
+
 private:
-    typename std::unordered_map<T, std::unordered_set<T>>::iterator current;
-    typename std::unordered_map<T, std::unordered_set<T>>::iterator end;
+    MapIterator current;
+    MapIterator end;
 };
 
 #endif //VERTEXITERATOR_H

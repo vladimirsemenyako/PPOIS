@@ -1,9 +1,9 @@
-# DVD Bouncing Logo
+# DVD Bouncing Logo (Qt)
 
 A simple Qt6 application that recreates the classic DVD screensaver animation where the DVD logo bounces around the screen.
 
 ## Technical Details
-- Built with Qt6 and C++20
+- Built with SFML and C++20
 - Uses QMainWindow for the application window
 - Implements QLabel for the DVD logo
 - Timer-based animation system

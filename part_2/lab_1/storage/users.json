@@ -34,5 +34,25 @@
         "status": "basic",
         "pin_code": "1111",
         "transactions": []
+    },
+    "at@gmail.com": {
+        "customer_id": 77,
+        "first_name": "q",
+        "last_name": "q",
+        "email": "at@gmail.com",
+        "password": "22222   2  2 2 2",
+        "credit_cards": [],
+        "debit_cards": [
+            {
+                "card_number": "9628703111701193",
+                "cvv_number": 760,
+                "exp_date": "2026-02-20",
+                "balance": 0.0,
+                "is_locked": false
+            }
+        ],
+        "status": "basic",
+        "pin_code": "1111",
+        "transactions": []
     }
 }

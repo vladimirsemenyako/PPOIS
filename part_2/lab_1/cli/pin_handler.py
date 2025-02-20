@@ -1,6 +1,6 @@
 """Module for handling PIN operations in CLI."""
 
-from models.customer import Customer
+from ..models.customer import Customer
 
 
 class PinHandler:

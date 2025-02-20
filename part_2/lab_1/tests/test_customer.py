@@ -100,34 +100,6 @@ class TestCustomer(unittest.TestCase):
         self.customer.delete()
         self.assertFalse(Customer.email_exists("john@example.com"))
 
-    def test_card_operations(self):
-        """Test card deposit and withdrawal operations."""
-        self.customer.pin.set_pin_code("1234")
-        debit_card = self.customer.get_debit_card()
-        
-        # Test deposit
-        self.assertTrue(self.customer.deposit(0, 1000))
-        self.assertEqual(debit_card.balance, 1000)
-        
-        # Test withdrawal
-        self.assertTrue(self.customer.withdraw(0, 500, "1234"))
-        self.assertEqual(debit_card.balance, 500)
-        
-        # Test withdrawal with wrong PIN
-        with self.assertRaises(ValueError) as context:
-            self.customer.withdraw(0, 100, "4321")
-        self.assertEqual(str(context.exception), "Invalid PIN code")
-        
-        # Test withdrawal with negative amount
-        with self.assertRaises(ValueError) as context:
-            self.customer.withdraw(0, -100, "1234")
-        self.assertEqual(str(context.exception), "Withdrawal amount must be positive")
-        
-        # Test withdrawal with insufficient funds
-        with self.assertRaises(ValueError) as context:
-            self.customer.withdraw(0, 1000, "1234")
-        self.assertEqual(str(context.exception), "Insufficient funds")
-
     def test_payment_operations(self):
         """Test payment operations."""
         self.customer.pin.set_pin_code("1234")

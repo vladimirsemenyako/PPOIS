@@ -3,11 +3,7 @@
 import os
 from typing import Optional, List, Tuple, Union
 
-from models.customer import Customer
-from models.pin_code import PinCode
-from models.bank_card import BankCard
-from models.credit_card import CreditCard
-from .climachine import CLIMachine
+from ..models.customer import Customer
 from .states import State, InitialState
 from .card_operations import CardOperationsHandler
 from .pin_handler import PinHandler

@@ -1,0 +1,38 @@
+{
+    "2243880@gmail.com": {
+        "customer_id": 48,
+        "first_name": "Vladimir",
+        "last_name": "Semenyako",
+        "email": "2243880@gmail.com",
+        "password": "Vova2005",
+        "credit_cards": [
+            {
+                "card_number": "0394927207726511",
+                "cvv_number": 649,
+                "exp_date": "2026-02-20",
+                "balance": 1000.0,
+                "is_locked": false,
+                "credit_limit": 1000.0
+            }
+        ],
+        "debit_cards": [
+            {
+                "card_number": "7803666464232454",
+                "cvv_number": 155,
+                "exp_date": "2026-02-20",
+                "balance": 0.0,
+                "is_locked": true
+            },
+            {
+                "card_number": "3594671262038103",
+                "cvv_number": 119,
+                "exp_date": "2026-02-20",
+                "balance": 0.0,
+                "is_locked": false
+            }
+        ],
+        "status": "basic",
+        "pin_code": "1111",
+        "transactions": []
+    }
+}

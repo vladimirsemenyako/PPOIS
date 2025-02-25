@@ -1,11 +1,8 @@
-"""Module for managing CLI state machine."""
-
 from transitions import Machine
 from typing import List, Dict, Any
 
 
 class CLIMachine:
-    """State machine for CLI interface."""
 
     states: List[str] = [
         'initial',
@@ -19,19 +16,12 @@ class CLIMachine:
     ]
 
     def __init__(self, cli) -> None:
-        """Initialize state machine.
-        
-        Args:
-            cli: CLI instance to control
-        """
         self.cli = cli
         self.machine = Machine(
             model=self,
             states=self.states,
             initial='initial'
         )
-
-        # Define state transitions
         self.machine.add_transitions([
             {
                 'trigger': 'login',
@@ -81,9 +71,7 @@ class CLIMachine:
         ])
 
     def on_enter_logged_in(self) -> None:
-        """Handle entering logged in state."""
         self.cli.show_main_menu()
 
     def on_enter_initial(self) -> None:
-        """Handle entering initial state."""
         self.cli.show_initial_menu()

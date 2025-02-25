@@ -5,28 +5,22 @@ from models.customer import Customer
 
 
 class State(ABC):
-    """Abstract base class for CLI states."""
-    
+
     def __init__(self, cli) -> None:
-        """Initialize state with CLI reference."""
         self.cli = cli
-    
+
     @abstractmethod
     def show_menu(self) -> None:
-        """Display menu for current state."""
         pass
-    
+
     @abstractmethod
     def handle_input(self, choice: str) -> None:
-        """Handle user input for current state."""
         pass
 
 
 class InitialState(State):
-    """State for non-authenticated users."""
-    
+
     def show_menu(self) -> None:
-        """Display initial menu."""
         self.cli.clear_screen()
         print("\n=== Banking System ===")
         print("1. Login")
@@ -35,7 +29,6 @@ class InitialState(State):
         print("4. Exit")
 
     def handle_input(self, choice: str) -> None:
-        """Handle initial menu choices."""
         if choice == "1":
             self.cli.login()
             if self.cli.customer:
@@ -58,10 +51,8 @@ class InitialState(State):
 
 
 class AuthenticatedState(State):
-    """State for authenticated users."""
-    
+
     def show_menu(self) -> None:
-        """Display main menu."""
         self.cli.clear_screen()
         print(f"\n=== Main Menu (User: {self.cli.customer.email}) ===")
         print(f"Status: {self.cli.customer.status}")
@@ -81,23 +72,19 @@ class AuthenticatedState(State):
         print("14. Logout")
 
     def handle_input(self, choice: str) -> None:
-        """Handle authenticated user menu choices."""
         self.cli.clear_screen()
-        
+
         if choice == "14":
             self.cli.customer = None
             self.cli.change_state(InitialState(self.cli))
             return
-            
-        # Обрабатываем выбор пользователя
+
         self.cli.process_main_menu_choice(choice)
 
 
 class AdminState(State):
-    """State for administrator interface."""
-    
+
     def show_menu(self) -> None:
-        """Display admin menu."""
         self.cli.clear_screen()
         print("\n=== Administrator Panel ===")
         print("1. View all users")
@@ -105,7 +92,6 @@ class AdminState(State):
         print("3. Return to main menu")
 
     def handle_input(self, choice: str) -> None:
-        """Handle admin menu choices."""
         if choice == "1":
             self.cli.clear_screen()
             users = Customer.get_all_users()
@@ -138,4 +124,4 @@ class AdminState(State):
                     print("\nDeletion cancelled.")
             input("\nPress Enter to continue...")
         elif choice == "3":
-            self.cli.change_state(InitialState(self.cli)) 
+            self.cli.change_state(InitialState(self.cli))

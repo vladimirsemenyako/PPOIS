@@ -155,7 +155,6 @@ class CLI:
             self.customer = None
 
     def show_main_menu(self):
-        """Display main menu for authenticated user."""
         self.clear_screen()
         print(f"\n=== Main Menu (User: {self.customer.email}) ===")
         print(f"Status: {self.customer.status}")
@@ -178,7 +177,6 @@ class CLI:
         self.process_main_menu_choice(choice)
 
     def process_main_menu_choice(self, choice: str) -> None:
-        """Process main menu choice."""
         self.clear_screen()
 
         if choice == "1":

@@ -4,11 +4,9 @@ from models.customer import Customer
 
 
 class PinHandler:
-    """Handler for PIN-related operations."""
 
     @staticmethod
     def handle_pin_creation(customer: Customer) -> None:
-        """Handle PIN code creation."""
         if customer.pin.has_pin_code():
             print("\nPIN-code already exists!")
             return
@@ -22,7 +20,6 @@ class PinHandler:
 
     @staticmethod
     def handle_pin_generation(customer: Customer) -> None:
-        """Handle PIN code generation."""
         if customer.pin.has_pin_code():
             print("\nPIN-code already exists!")
             return
@@ -33,7 +30,6 @@ class PinHandler:
 
     @staticmethod
     def handle_pin_change(customer: Customer) -> None:
-        """Handle PIN code change."""
         if not customer.pin.has_pin_code():
             print("\nNo PIN-code set!")
             return

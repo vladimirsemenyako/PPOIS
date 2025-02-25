@@ -7,22 +7,14 @@ from models.credit_card import CreditCard
 
 
 class CardOperationsHandler:
-    """Handler for card-related operations."""
 
     @staticmethod
     def _show_cards_list(customer: Customer) -> List[Tuple[str, Union[BankCard, CreditCard]]]:
-        """Create and display unified list of all cards.
-        
-        Returns:
-            List of tuples containing card type and card object
-        """
         available_cards = []
         for card in customer.debit_cards:
             available_cards.append(("Debit", card))
         for card in customer.credit_cards:
             available_cards.append(("Credit", card))
-
-        # Показываем все карты в едином списке
         for i, (card_type, card) in enumerate(available_cards, 1):
             balance_text = "Available" if isinstance(card, CreditCard) else "Balance"
             print(f"{i}) {card_type} Card: {card.card_number} ({balance_text}: {card.balance:.2f}, Status: {'Locked' if card.is_locked else 'Active'})")
@@ -31,7 +23,6 @@ class CardOperationsHandler:
 
     @staticmethod
     def handle_balance_check(customer: Customer) -> None:
-        """Handle balance check operation."""
         print("\n=== Balance Check ===")
         
         if not (customer.debit_cards or customer.credit_cards):
@@ -42,8 +33,12 @@ class CardOperationsHandler:
 
     @staticmethod
     def handle_card_issuance(customer: Customer, is_credit: bool = False) -> None:
-        """Handle card issuance operation."""
         try:
+            if not customer.pin.has_pin_code():
+                print("\nError: You must set a PIN code before issuing any cards.")
+                print("Please use the 'Create PIN-code' or 'Generate PIN-code' option first.")
+                return
+            
             if is_credit:
                 card = customer.get_credit_card()
                 print("\nCredit card successfully issued!")
@@ -58,7 +53,6 @@ class CardOperationsHandler:
 
     @staticmethod
     def handle_card_blocking(customer: Customer, block: bool = True) -> None:
-        """Handle card blocking/unblocking operation."""
         if not (customer.debit_cards or customer.credit_cards):
             print("\nNo cards available.")
             return
@@ -74,9 +68,7 @@ class CardOperationsHandler:
                 return
 
             card_type, card = available_cards[choice - 1]
-
-            # Проверяем возможность разблокировки карты
-            if not block:  # Если пытаемся разблокировать
+            if not block:
                 if card_type == "Credit" and len(customer.credit_cards) > customer.limits.get_credit_card_limit(customer.status):
                     print("\nCannot unblock: Credit card limit exceeded for current status.")
                     return
@@ -98,14 +90,11 @@ class CardOperationsHandler:
 
     @staticmethod
     def handle_transaction(customer: Customer, transaction_type: str) -> None:
-        """Handle deposit/withdrawal/payment transaction."""
         if not (customer.debit_cards or customer.credit_cards):
             print("\nNo cards available.")
             return
 
         print(f"\n=== {transaction_type.capitalize()} ===")
-        
-        # Показываем лимит снятия для withdrawal
         if transaction_type == "withdrawal":
             withdrawal_limit = customer.limits.get_withdrawal_limit(customer.status)
             print(f"Withdrawal limit for {customer.status} status: {withdrawal_limit:.2f}")

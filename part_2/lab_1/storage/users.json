@@ -1,22 +1,22 @@
 {
-    "123@mail.ru": {
-        "customer_id": 97,
-        "first_name": "v",
-        "last_name": "s",
-        "email": "123@mail.ru",
-        "password": "111111",
+    "1@mail.com": {
+        "customer_id": 40,
+        "first_name": "dvbahjsvkbgj",
+        "last_name": "vbdfshjvbksdjhf",
+        "email": "1@mail.com",
+        "password": "123411",
         "credit_cards": [
             {
-                "card_number": "5107613903512040",
-                "cvv_number": 422,
+                "card_number": "6505929930513606",
+                "cvv_number": 506,
                 "exp_date": "2026-02-25",
                 "balance": 1000.0,
                 "is_locked": false,
                 "credit_limit": 1000.0
             },
             {
-                "card_number": "7114705963271664",
-                "cvv_number": 392,
+                "card_number": "1598103310575783",
+                "cvv_number": 786,
                 "exp_date": "2026-02-25",
                 "balance": 2000.0,
                 "is_locked": true,
@@ -25,95 +25,29 @@
         ],
         "debit_cards": [
             {
-                "card_number": "8883254994146765",
-                "cvv_number": 565,
+                "card_number": "2955134186675667",
+                "cvv_number": 913,
                 "exp_date": "2026-02-25",
-                "balance": 118179.0,
+                "balance": 0.0,
                 "is_locked": false
             },
             {
-                "card_number": "1669544539488246",
-                "cvv_number": 226,
+                "card_number": "7150757272885738",
+                "cvv_number": 392,
                 "exp_date": "2026-02-25",
                 "balance": 0.0,
-                "is_locked": true
+                "is_locked": false
             },
             {
-                "card_number": "5137685459281601",
-                "cvv_number": 708,
+                "card_number": "2587087379238248",
+                "cvv_number": 414,
                 "exp_date": "2026-02-25",
                 "balance": 0.0,
                 "is_locked": true
             }
         ],
         "status": "basic",
-        "pin_code": "1111",
-        "transactions": [
-            {
-                "type": "deposit",
-                "amount": 123123.0,
-                "card_number": "8883254994146765",
-                "description": "",
-                "date": "02/25/2025 10:10"
-            },
-            {
-                "type": "withdrawal",
-                "amount": 500.0,
-                "card_number": "8883254994146765",
-                "description": "",
-                "date": "02/25/2025 10:11"
-            },
-            {
-                "type": "payment",
-                "amount": 4444.0,
-                "card_number": "8883254994146765",
-                "description": "erip",
-                "date": "02/25/2025 10:11"
-            }
-        ]
-    },
-    "1@m.com": {
-        "customer_id": 94,
-        "first_name": "v",
-        "last_name": "s",
-        "email": "1@m.com",
-        "password": "111111",
-        "credit_cards": [
-            {
-                "card_number": "3070913147299893",
-                "cvv_number": 728,
-                "exp_date": "2026-02-25",
-                "balance": 1000.0,
-                "is_locked": false,
-                "credit_limit": 1000.0
-            }
-        ],
-        "debit_cards": [
-            {
-                "card_number": "5198904714201352",
-                "cvv_number": 378,
-                "exp_date": "2026-02-25",
-                "balance": 212989.0,
-                "is_locked": false
-            }
-        ],
-        "status": "basic",
-        "pin_code": "1234",
-        "transactions": [
-            {
-                "type": "deposit",
-                "amount": 213123.0,
-                "card_number": "5198904714201352",
-                "description": "",
-                "date": "02/25/2025 03:41"
-            },
-            {
-                "type": "withdrawal",
-                "amount": 134.0,
-                "card_number": "5198904714201352",
-                "description": "",
-                "date": "02/25/2025 03:41"
-            }
-        ]
+        "pin_code": "9732",
+        "transactions": []
     }
 }

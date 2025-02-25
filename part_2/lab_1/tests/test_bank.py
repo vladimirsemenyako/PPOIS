@@ -2,9 +2,9 @@
 
 import unittest
 from datetime import datetime
-from ..models.bank import Bank
-from ..models.bank_card import BankCard
-from ..models.credit_card import CreditCard
+from models.bank import Bank
+from models.bank_card import BankCard
+from models.credit_card import CreditCard
 
 
 class TestBank(unittest.TestCase):

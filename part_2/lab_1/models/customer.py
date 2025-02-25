@@ -1,5 +1,3 @@
-"""Module for managing customer accounts."""
-
 import random
 import re
 import json

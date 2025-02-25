@@ -1,6 +1,6 @@
 """Module for handling bank operations."""
 
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from datetime import datetime
 from .bank_card import BankCard
 from .credit_card import CreditCard
@@ -15,7 +15,7 @@ class Bank:
 
     def __init__(self) -> None:
         """Initialize bank instance."""
-        self._transactions: Dict[str, list] = {}
+        self._transactions: Dict[str, List[Dict]] = {}
 
     def verify_pin(self, card_number: str, pin: str) -> bool:
         """Verify PIN code for card.
@@ -72,7 +72,6 @@ class Bank:
         Raises:
             ValueError: If operation is invalid
         """
-            
         self._validate_amount(amount)
         self._check_card_status(card)
 
@@ -133,7 +132,7 @@ class Bank:
             return True
         return False
 
-    def get_card_transactions(self, card_number: str) -> list:
+    def get_card_transactions(self, card_number: str) -> List[Dict]:
         """Get transaction history for card.
         
         Args:
@@ -160,5 +159,5 @@ class Bank:
             'type': trans_type,
             'amount': amount,
             'description': description,
-            'date': datetime.now().strftime("%m/%d/%Y %I:%M")
+            'date': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         }) 

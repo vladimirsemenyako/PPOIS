@@ -2,9 +2,8 @@
 
 import unittest
 import os
-import json
 from pathlib import Path
-from ..models.customer import Customer
+from models.customer import Customer
 
 
 class TestCustomer(unittest.TestCase):

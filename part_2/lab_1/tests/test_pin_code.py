@@ -1,7 +1,7 @@
 """Tests for PIN code functionality."""
 
 import unittest
-from part_2.lab_1.models.pin_code import PinCode
+from models.pin_code import PinCode
 
 
 class TestPinCode(unittest.TestCase):

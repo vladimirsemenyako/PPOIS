@@ -1,9 +1,9 @@
 """Module for handling card operations in CLI."""
 
 from typing import Optional, List, Tuple, Union
-from ..models.customer import Customer
-from ..models.bank_card import BankCard
-from ..models.credit_card import CreditCard
+from models.customer import Customer
+from models.bank_card import BankCard
+from models.credit_card import CreditCard
 
 
 class CardOperationsHandler:

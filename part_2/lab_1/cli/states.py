@@ -1,7 +1,7 @@
 """Module for CLI state management."""
 
 from abc import ABC, abstractmethod
-from ..models.customer import Customer
+from models.customer import Customer
 
 
 class State(ABC):

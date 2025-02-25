@@ -1,7 +1,7 @@
 """Tests for account limits functionality."""
 
 import unittest
-from part_2.lab_1.models.limits import Limits
+from models import Limits
 
 
 class TestLimits(unittest.TestCase):

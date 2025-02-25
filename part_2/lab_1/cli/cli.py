@@ -3,19 +3,16 @@
 import os
 from typing import Optional, List, Tuple, Union
 
-from ..models.customer import Customer
+from models.customer import Customer
 from .states import State, InitialState
 from .card_operations import CardOperationsHandler
 from .pin_handler import PinHandler
 
 
 class CLI:
-    """Command-line interface for banking system."""
-
     ADMIN_PASSWORD = "1111"
 
     def __init__(self) -> None:
-        """Initialize CLI interface."""
         self.customer: Optional[Customer] = None
         self._state: Optional[State] = None
         self.change_state(InitialState(self))
@@ -23,26 +20,18 @@ class CLI:
         self.pin_handler = PinHandler()
 
     def change_state(self, state: State) -> None:
-        """Change current state.
-        
-        Args:
-            state: New state to switch to
-        """
         self._state = state
 
     def clear_screen(self) -> None:
-        """Clear terminal screen using ANSI escape codes."""
         os.system('clear')
 
     def start(self) -> None:
-        """Start the CLI interface."""
         while True:
             self._state.show_menu()
             choice = input("\nSelect action: ")
             self._state.handle_input(choice)
 
     def show_initial_menu(self) -> None:
-        """Display initial menu for non-authenticated users."""
         self.clear_screen()
         print("\n=== Banking System ===")
         print("1. Login")
@@ -69,7 +58,6 @@ class CLI:
             exit()
 
     def show_admin_menu(self) -> None:
-        """Display administrator menu."""
         self.clear_screen()
         print("\n=== Administrator Panel ===")
         print("1. View all users")
@@ -111,28 +99,23 @@ class CLI:
             input("\nPress Enter to continue...")
 
     def _input_admin_password(self) -> Optional[str]:
-        """Get new password input for admin password reset.
-        
-        Returns:
-            str: New password or None if cancelled
-        """
         print("\nEnter new password (minimum 6 characters)")
         print("Leave empty to cancel")
-        
+
         while True:
             password = input("New password: ").strip()
             if not password:
                 return None
-                
+
             if len(password) < 6:
                 print("Error: Password must be at least 6 characters long.")
                 continue
-                
+
             confirm = input("Confirm password: ").strip()
             if password != confirm:
                 print("Error: Passwords do not match.")
                 continue
-                
+
             return password
 
     def login(self):
@@ -146,15 +129,15 @@ class CLI:
                     return
                 else:
                     return
-            
+
             customer = Customer.load(email)
             password = input("Enter password: ")
-            
+
             if not customer.verify_password(password):
                 print("\nIncorrect password!")
                 input("\nPress Enter to continue...")
                 return
-                
+
             self.customer = customer
             print("\nLogin successful!")
             input("\nPress Enter to continue...")
@@ -197,7 +180,7 @@ class CLI:
     def process_main_menu_choice(self, choice: str) -> None:
         """Process main menu choice."""
         self.clear_screen()
-        
+
         if choice == "1":
             self.pin_handler.handle_pin_creation(self.customer)
         elif choice == "2":

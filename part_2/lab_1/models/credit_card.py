@@ -1,6 +1,3 @@
-"""Module for handling credit card operations."""
-
-from typing import Optional
 from .bank_card import BankCard
 
 

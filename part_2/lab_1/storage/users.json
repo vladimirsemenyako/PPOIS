@@ -49,5 +49,17 @@
         "status": "basic",
         "pin_code": "9732",
         "transactions": []
+    },
+    "2243880@gmail.com": {
+        "customer_id": 93,
+        "first_name": "Vladimir",
+        "last_name": "Semenyako",
+        "email": "2243880@gmail.com",
+        "password": "Vova2005",
+        "credit_cards": [],
+        "debit_cards": [],
+        "status": "basic",
+        "pin_code": "1234",
+        "transactions": []
     }
 }

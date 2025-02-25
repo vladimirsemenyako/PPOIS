@@ -1,5 +1,3 @@
-"""Module for command-line interface."""
-
 import os
 from typing import Optional, List, Tuple, Union
 

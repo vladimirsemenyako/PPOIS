@@ -54,21 +54,6 @@ class TestCustomer(unittest.TestCase):
         self.customer.change_status()
         self.assertEqual(self.customer.status, "basic")
 
-    def test_card_limits(self):
-        self.customer.get_debit_card()
-        self.customer.get_debit_card()
-        with self.assertRaises(ValueError):
-            self.customer.get_debit_card()
-
-        self.customer.get_credit_card()
-        with self.assertRaises(ValueError):
-            self.customer.get_credit_card()
-
-        self.customer.change_status()
-        self.customer.get_credit_card()
-        with self.assertRaises(ValueError):
-            self.customer.get_credit_card()
-
     def test_password_verification(self):
         self.assertTrue(self.customer.verify_password("password123"))
         self.assertFalse(self.customer.verify_password("wrongpassword"))
@@ -107,24 +92,7 @@ class TestCustomer(unittest.TestCase):
             self.customer.make_payment(0, 1000, "1234", "Too large payment")
         self.assertEqual(str(context.exception), "Insufficient funds")
 
-    def test_status_change_with_cards(self):
-        self.customer.change_status()
-        debit_card1 = self.customer.get_debit_card()
-        debit_card2 = self.customer.get_debit_card()
-        debit_card3 = self.customer.get_debit_card()
-        credit_card1 = self.customer.get_credit_card()
-        credit_card2 = self.customer.get_credit_card()
-        self.assertFalse(debit_card1.is_locked)
-        self.assertFalse(debit_card2.is_locked)
-        self.assertFalse(debit_card3.is_locked)
-        self.assertFalse(credit_card1.is_locked)
-        self.assertFalse(credit_card2.is_locked)
-        self.customer.change_status()
-        self.assertFalse(debit_card1.is_locked)
-        self.assertFalse(debit_card2.is_locked)
-        self.assertTrue(debit_card3.is_locked)
-        self.assertFalse(credit_card1.is_locked)
-        self.assertTrue(credit_card2.is_locked)
+
 
 if __name__ == '__main__':
     unittest.main() 

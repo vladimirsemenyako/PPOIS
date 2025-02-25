@@ -208,12 +208,6 @@ A comprehensive banking system implementation with support for debit and credit 
 
 ## Usage
 
-### Installation
-```bash
-git clone <repository-url>
-cd banking-system
-```
-
 ### Running the Application
 ```bash
 python main.py
